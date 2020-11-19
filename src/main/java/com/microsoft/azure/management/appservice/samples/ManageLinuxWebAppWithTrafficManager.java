@@ -21,6 +21,8 @@ import com.azure.resourcemanager.appservice.models.RuntimeStack;
 import com.azure.resourcemanager.appservice.models.WebApp;
 import com.azure.resourcemanager.resources.fluentcore.arm.CountryIsoCode;
 import com.azure.resourcemanager.resources.fluentcore.arm.CountryPhoneCode;
+import com.azure.resourcemanager.trafficmanager.models.TrafficManagerProfile;
+import com.azure.resourcemanager.trafficmanager.models.TrafficRoutingMethod;
 import com.microsoft.azure.management.samples.Utils;
 
 import okhttp3.OkHttpClient;
@@ -168,27 +170,27 @@ public final class ManageLinuxWebAppWithTrafficManager {
 
             System.out.println("Creating a traffic manager " + tmName + " for the web apps...");
 
-            // TrafficManagerProfile trafficManager =
-            // azureResourceManager.trafficManagerProfiles().define(tmName)
-            // .withExistingResourceGroup(RG_NAME)
-            // .withLeafDomainLabel(tmName)
-            // .withTrafficRoutingMethod(TrafficRoutingMethod.PRIORITY)
-            // .defineAzureTargetEndpoint("endpoint1")
-            // .toResourceId(app1.id())
-            // .withRoutingPriority(1)
-            // .attach()
-            // .defineAzureTargetEndpoint("endpoint2")
-            // .toResourceId(app2.id())
-            // .withRoutingPriority(2)
-            // .attach()
-            // .defineAzureTargetEndpoint("endpoint3")
-            // .toResourceId(app3.id())
-            // .withRoutingPriority(3)
-            // .attach()
-            // .create();
+            TrafficManagerProfile trafficManager =
+            azureResourceManager.trafficManagerProfiles().define(tmName)
+            .withExistingResourceGroup(RG_NAME)
+            .withLeafDomainLabel(tmName)
+            .withTrafficRoutingMethod(TrafficRoutingMethod.PRIORITY)
+            .defineAzureTargetEndpoint("endpoint1")
+            .toResourceId(app1.id())
+            .withRoutingPriority(1)
+            .attach()
+            .defineAzureTargetEndpoint("endpoint2")
+            .toResourceId(app2.id())
+            .withRoutingPriority(2)
+            .attach()
+            .defineAzureTargetEndpoint("endpoint3")
+            .toResourceId(app3.id())
+            .withRoutingPriority(3)
+            .attach()
+            .create();
 
-            // System.out.println("Created traffic manager " + trafficManager.name());
-            // Utils.print(trafficManager);
+            System.out.println("Created traffic manager " + trafficManager.name());
+            Utils.print(trafficManager);
 
             // ============================================================
             // Scale up the app service plans
